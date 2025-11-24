@@ -7,13 +7,14 @@ def transform(original):
     dim_customers = original["customers"].copy()
     dim_customers = dim_customers.drop(['phone', 'fax'], axis=1)
 
-    # 2. Products + Categories Dimension
+    # 2. Products Dimension (Products + Categories)
     dim_products = original["products"].merge(
         original["categories"],
         how="left",
         left_on="categoryID",
         right_on="categoryID"
     )
+
     dim_products = dim_products.drop(
         ['supplierID', 'quantityPerUnit', 'description', 'picture'],
         axis=1
@@ -26,7 +27,7 @@ def transform(original):
         axis=1
     )
 
-    # 4. Orders + Order Details Fact Table (not fully processed yet)
+    # 4. Order Fact (Orders + Order Details)
     fact_orders = original["order_details"].merge(
         original["orders"],
         how="left",
@@ -37,14 +38,12 @@ def transform(original):
         ['requiredDate', 'shippedDate', 'shipVia', 'freight'],
         axis=1
     )
-
-    print("Transformation complete.")
     
     return {
         "dim_employees": dim_employees,
         "dim_customers": dim_customers,
         "dim_products": dim_products,
-        "fact_orders_raw": fact_orders      # Return this so you can inspect it!
+        "fact_orders": fact_orders
     }
 
 
