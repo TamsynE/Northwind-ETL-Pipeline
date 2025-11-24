@@ -22,20 +22,16 @@ def extract_all(data_dir="./data"):
     data = {
         "categories": load_csv("categories.csv", data_dir),
         "customers": load_csv("customers.csv", data_dir),
-        "employee_territories": load_csv("employee_territories.csv", data_dir),
         "employees": load_csv("employees.csv", data_dir),
         "order_details": load_csv("order_details.csv", data_dir),
         "orders": load_csv("orders.csv", data_dir),
         "products": load_csv("products.csv", data_dir),
-        "regions": load_csv("regions.csv", data_dir),
-        "shippers": load_csv("shippers.csv", data_dir),
-        "suppliers": load_csv("suppliers.csv", data_dir),
-        "territories": load_csv("territories.csv", data_dir),
     }
     return data
 
 
 if __name__ == "__main__":
     data = extract_all()
+    print(data)
     print("Data extraction complete.")
 
