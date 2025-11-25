@@ -1,5 +1,7 @@
 from extract import extract_all
 import pandas as pd
+import csv
+import os
 
 def transform(original):
 
@@ -46,18 +48,29 @@ def transform(original):
         "fact_orders": fact_orders
     }
 
+def save_transformed(transformed, output_dir="./out"):
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    for name, df in transformed.items():
+        path = os.path.join(output_dir, f"{name}.csv")
+        df.to_csv(path, index=False)
 
 if __name__ == "__main__":
     raw_data = extract_all()
 
-    print("\n=== RAW DATAFRAMES ===")
+    print("\nRAW DATAFRAMES")
+    print("==============")
     for name, df in raw_data.items():
         print(f"\n{name} ({df.shape[0]} rows, {df.shape[1]} columns)")
         print(df.head())
 
     transformed = transform(raw_data)
 
-    print("\n=== TRANSFORMED TABLES ===")
+    print("\nTRANSFORMED TABLES")
+    print("==============")
     for name, df in transformed.items():
         print(f"\n{name} ({df.shape[0]} rows, {df.shape[1]} columns)")
         print(df.head())
+
+    save_transformed(transformed)
