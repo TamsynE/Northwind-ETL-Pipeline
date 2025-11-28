@@ -24,6 +24,7 @@ def transform(original):
 
     # 3. Employees Dimension
     dim_employees = original["employees"].copy()
+    dim_employees['region'] = dim_employees['region'].fillna('UK')
     dim_employees = dim_employees.drop(
         ['titleOfCourtesy', 'homePhone', 'extension', 'photo', 'notes', 'photoPath'],
         axis=1
@@ -35,6 +36,8 @@ def transform(original):
         how="left",
         on="orderID"
     )
+
+    fact_orders['shipRegion'] = fact_orders['shipRegion'].fillna("Unknown")
 
     fact_orders = fact_orders.drop(
         ['requiredDate', 'shippedDate', 'shipVia', 'freight'],
