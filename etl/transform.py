@@ -39,6 +39,8 @@ def transform(original):
 
     fact_orders['shipRegion'] = fact_orders['shipRegion'].fillna("Unknown")
 
+    fact_orders['revenue'] = fact_orders['unitPrice'] * fact_orders["quantity"] * (1 - fact_orders["discount"])
+
     fact_orders = fact_orders.drop(
         ['requiredDate', 'shippedDate', 'shipVia', 'freight'],
         axis=1
