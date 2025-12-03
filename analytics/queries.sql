@@ -1,88 +1,82 @@
--- Monthly Revenue
+-- Best Selling Products
 SELECT
-  YEAR(orderDate) AS year,
-  MONTH(orderDate) AS month,
-  ROUND(SUM(revenue),2) AS total_revenue
-FROM fact_sales
-GROUP BY year, month
-ORDER BY year, month;
-
--- Best-Selling Products
-SELECT
-  p.productName,
+  p.productname AS product_name,
+  p.categoryName AS category,
   SUM(f.quantity) AS total_units_sold,
   ROUND(SUM(f.revenue),2) AS total_revenue
-FROM fact_sales f
-JOIN dim_products p
+FROM `etl-project-478115.Northwind.fact_orders` f
+JOIN `etl-project-478115.Northwind.dim_products` p
   ON f.productid = p.productid
-GROUP BY p.productName
-ORDER BY total_units_sold DESC, total_revenue DESC
-LIMIT 10;
+GROUP BY product_name, category
+ORDER BY total_units_sold DESC;
 
 -- Category Performance
-SELECT
-  p.categoryname,
+SELECT p.categoryName as category,
   SUM(f.quantity) AS units_sold,
-  SUM(f.revenue) AS revenue
-FROM fact_sales f
-JOIN dim_products p
+  ROUND(SUM(f.revenue),2) AS revenue 
+FROM `etl-project-478115.Northwind.fact_orders` f
+JOIN `etl-project-478115.Northwind.dim_products` p
   ON f.productid = p.productid
-GROUP BY p.categoryname
+GROUP BY p.categoryName
 ORDER BY revenue DESC;
+
+-- Country Revenue
+SELECT
+  c.country,
+  ROUND(SUM(f.revenue),2) AS revenue
+FROM `etl-project-478115.Northwind.fact_orders` f
+JOIN `etl-project-478115.Northwind.dim_customers` c
+  ON f.customerID = c.customerID
+GROUP BY c.country
+ORDER BY revenue DESC;
+
+-- Daily Revenue
+SELECT
+  EXTRACT(DAY FROM orderDate) AS day,
+  EXTRACT(YEAR FROM orderDate) AS year,
+  EXTRACT(MONTH FROM orderDate) AS month,
+  ROUND(SUM(revenue),2) AS total_revenue
+FROM `etl-project-478115.Northwind.fact_orders` 
+GROUP BY day, year, month
+ORDER BY day, year, month;
+
+-- Weekly Revenue
+SELECT
+  DATE_TRUNC(orderdate, WEEK) AS week_start,
+  ROUND(SUM(revenue), 2) AS total_revenue
+FROM `etl-project-478115.Northwind.fact_orders`
+GROUP BY week_start
+ORDER BY week_start;
+
+-- Monthly Revenue
+SELECT
+  EXTRACT(YEAR FROM orderDate) AS year,
+  EXTRACT(MONTH FROM orderDate) AS month,
+  ROUND(SUM(revenue),2) AS total_revenue
+FROM `etl-project-478115.Northwind.fact_orders` 
+GROUP BY year, month
+ORDER BY year, month;
 
 -- Top Customers
 SELECT
   c.customerID as customer_id,
   c.companyName as company,
-  SUM(f.revenue) AS total_revenue,
+  ROUND(SUM(f.revenue),2) AS total_revenue,
   COUNT(DISTINCT f.orderid) AS num_orders
-FROM fact_orders f
-JOIN dim_customers c
+FROM `etl-project-478115.Northwind.fact_orders` f
+JOIN `etl-project-478115.Northwind.dim_customers` c
   ON f.customerID = c.customerID
 GROUP BY c.customerID, c.companyName
 ORDER BY total_revenue DESC
 LIMIT 10;
 
--- Shipping Revenue by Country
-SELECT
-  c.country,
-  ROUND(SUM(f.revenue),2) AS revenue
-FROM fact_sales f
-JOIN dim_customers c
-  ON f.customerID = c.customerID
-GROUP BY c.country
-ORDER BY revenue DESC;
-
--- Daily Sales Trend
-SELECT
-  orderdate,
-  SUM(revenue) AS revenue
-FROM fact_sales
-GROUP BY orderdate
-ORDER BY orderdate;
-
--- Revenue by Category over Time
-SELECT
-  EXTRACT(YEAR FROM f.orderdate) AS year,
-  EXTRACT(MONTH FROM f.orderdate) AS month,
-  p.categoryname,
-  SUM(f.revenue) AS revenue
-FROM fact_sales f
-JOIN dim_products p
-  ON f.productid = p.productid
-GROUP BY year, month, p.categoryname
-ORDER BY year, month, revenue DESC;
-
--- Top Sales per Employee
+-- Top Employees
 SELECT
   CONCAT(e.firstname, ' ', e.lastname) AS employee,
-  SUM(f.revenue) AS revenue
-FROM fact_sales f
-JOIN dim_employees e
+  e.title,
+  ROUND(SUM(f.revenue),2) AS revenue
+FROM `etl-project-478115.Northwind.fact_orders` f
+JOIN `etl-project-478115.Northwind.dim_employees` e
   ON f.employeeID = e.employeeID
-GROUP BY employee
+GROUP BY employee, title
 ORDER BY revenue DESC;
-
-
-
-
