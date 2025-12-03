@@ -12,7 +12,7 @@ def load_csv(file_name, data_dir="./data"):
         return df
     except FileNotFoundError:
         print(f"File not found: {file_path}")
-        return pd.DataFrame() # return empty
+        return pd.DataFrame() # empty
 
 
 def extract_all(data_dir="./data"):

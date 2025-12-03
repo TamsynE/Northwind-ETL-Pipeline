@@ -63,19 +63,5 @@ def save_transformed(transformed, output_dir="./out"):
 
 if __name__ == "__main__":
     raw_data = extract_all()
-
-    print("\nRAW DATAFRAMES")
-    print("==============")
-    for name, df in raw_data.items():
-        print(f"\n{name} ({df.shape[0]} rows, {df.shape[1]} columns)")
-        print(df.head())
-
     transformed = transform(raw_data)
-
-    print("\nTRANSFORMED TABLES")
-    print("==============")
-    for name, df in transformed.items():
-        print(f"\n{name} ({df.shape[0]} rows, {df.shape[1]} columns)")
-        print(df.head())
-
     save_transformed(transformed)
