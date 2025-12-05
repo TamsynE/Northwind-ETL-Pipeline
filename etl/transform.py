@@ -18,7 +18,7 @@ def transform(original):
     )
 
     dim_products = dim_products.drop(
-        ['supplierID', 'quantityPerUnit', 'description', 'picture'],
+        ['supplierID', 'quantityPerUnit', 'description', 'picture', 'unitPrice', 'unitsInStock', 'unitsOnOrder', 'reorderLevel', 'discontinued'],
         axis=1
     )
 
@@ -42,7 +42,7 @@ def transform(original):
     fact_orders['revenue'] = fact_orders['unitPrice'] * fact_orders["quantity"] * (1 - fact_orders["discount"])
 
     fact_orders = fact_orders.drop(
-        ['requiredDate', 'shippedDate', 'shipVia', 'freight'],
+        ['requiredDate', 'shippedDate', 'shipVia', 'freight', 'shipName', 'shipAddress', 'shipCity', 'shipRegion', 'shipPostalCode', 'shipCountry'],
         axis=1
     )
     
