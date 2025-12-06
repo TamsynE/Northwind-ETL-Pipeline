@@ -127,19 +127,19 @@ Metrics include:
 
 ### Sample Analytical Results
 
-Highest weekly revenue: April 12, 1998 — $52,976.82
+Highest weekly revenue: April 12, 1998 ($52,976.82)
 
-Lowest weekly revenue: June 30, 1996 — $2,303.40
+Lowest weekly revenue: June 30, 1996 ($2,303.40)
 
 Average weekly revenue: $13,049.41
 
-Top category by revenue: Beverages — $267,868.18 (21.2%)
+Top category by revenue: Beverages, $267,868.18 (21.2%)
 
-Top product: Côte de Blaye — $141,396.74
+Top product: Côte de Blaye, $141,396.74
 
-Top customer: QUICK-Stop — $110,277.31
+Top customer: QUICK-Stop, $110,277.31
 
-Top employee: Margaret Peacock — $232,890.85
+Top employee: Margaret Peacock, $232,890.85
 
 ### Challenges
 
