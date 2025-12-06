@@ -16,6 +16,8 @@ The project demonstrates core data engineering and data warehousing concepts:
 
 - Dashboarding with Looker Studio
 
+Link to final dashboard: https://lookerstudio.google.com/s/naGLnF3fd40 
+
 
 ## Project Goals
 - Build a complete ETL pipeline from raw CSVs to cloud analytics
@@ -111,7 +113,7 @@ Queries include:
 
 #### 5. Visualize (Looker Studio)
 
-Built interactive dashboard using BigQuery saved views
+Built interactive dashboard using BigQuery saved views (Available at: https://lookerstudio.google.com/s/naGLnF3fd40) 
 
 Metrics include:
 
