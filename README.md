@@ -59,26 +59,6 @@ Dimension tables contain descriptive, slow-changing attributes for analysis.
 | Data Modeling        | Star Schema     |
 | Version Control      | Git / GitHub    |
 
-## Repository Structure
-├── data/
-│   ├── customers.csv
-│   ├── employees.csv
-│   ├── products.csv
-│   ├── categories.csv
-│   ├── orders.csv
-│   └── order_details.csv
-│
-├── output/
-│   ├── dim_customers.csv
-│   ├── dim_products.csv
-│   ├── dim_employees.csv
-│   └── fact_orders.csv
-│
-├── extract.py
-├── transform.py
-├── README.md
-└── requirements.txt
-
 ## ETL Pipeline Description
 
 #### 1. Extract
