@@ -1,5 +1,4 @@
 # Northwind Retail ETL Pipeline & Analytics
-## Python • Pandas • Google BigQuery • Looker Studio • Data Warehousing
 
 ## Overview
 
